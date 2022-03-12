@@ -19,7 +19,6 @@
 #define API_KEY "AIzaSyCLjtngIQpImHx4h-eJu4Qu3MAhwE4Y0eU"
 
 
-//Deklaracja zmiennych
   VL53L0X sensor; //LiDAR
   Servo myservo; //Serwo
   FirebaseAuth auth; //Obiekt zawierajacy dane do zweryfikowania tej aplikacji w Firebase
@@ -112,7 +111,7 @@ void setup() {
 
 
 void loop() {
-  for (int i=0; i<=60; i++)
+  for (int i = 0; i <= 60; i++)
   {
     if(servo_direction) alpha = 150 - i*2; //alpha to kat wychylenia serwa
     else alpha = 30 + i*2; 
@@ -123,7 +122,7 @@ void loop() {
       distance = -1;
       Serial.println(" TIMEOUT");
     }
-    if (distance >0 && distance <= 120)
+    if (distance > 0 && distance <= 120)
     { // Obiekt w zasięgu LiDAR-u
       beta = 180 - alpha;
       x = distance * cos(beta * 3.14159/180); //Wspolrzedne polozenia obiektu w osi x 
@@ -159,14 +158,14 @@ void loop() {
       //Tworzenie lini reprezentujacej polozenie serwa
       tft.drawLine(h/2, w, X[60-i], Y[60-i], TFT_BLUE);
       //USuwanie poprzednio narysowanej lini
-      if(i >0)  tft.drawLine(h/2, w, X[61-i], Y[61-i], TFT_BLACK);
+      if(i > 0)  tft.drawLine(h/2, w, X[61-i], Y[61-i], TFT_BLACK);
       //Tworzenie mapy terenu 
       draw_map(alpha, distance);
     }
     else  //dla obrotow serwa od lewej do prawej
     {
       tft.drawLine(h/2, w, X[i], Y[i], TFT_BLUE);
-      if(i >0)  tft.drawLine(h/2, w, X[i-1], Y[i-1], TFT_BLACK);
+      if(i > 0)  tft.drawLine(h/2, w, X[i-1], Y[i-1], TFT_BLACK);
       draw_map(alpha, distance);
     }
     Serial.println(alpha);  
@@ -222,7 +221,7 @@ void alarm()
 
 void clean_screen(int alpha) 
 {
-  for (int j=0; j<=60; j++) 
+  for (int j = 0; j <= 60; j++) 
   {
     if (y_lcd[j]!=0) tft.fillCircle(x_lcd[j],y_lcd[j],3,TFT_BLACK);
     x_lcd[j]=0;
@@ -265,7 +264,7 @@ void draw_map(byte alpha, int distance) {
   if (distance < 120) 
   {
     tft.setCursor(0, 0, 2); //Ustawienie położenia dla następnego napisu
-    tft.setTextColor(TFT_GREEN,TFT_BLACK); //Ustawienie koloru i koloru tła następnego napisu
+    tft.setTextColor(TFT_GREEN, TFT_BLACK); //Ustawienie koloru i koloru tła następnego napisu
     tft.print((String)"Odl."+distance+"cm"); //Wyświetlenie odległości od przeszkody
   }
   else 
